@@ -66,8 +66,7 @@ namespace DogWalkerFull.Controllers
         [HttpGet("{id}", Name = "GetOwner")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
-            using (
-                SqlConnection conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
@@ -113,10 +112,10 @@ namespace DogWalkerFull.Controllers
                             Notes = reader.GetString(reader.GetOrdinal("Notes"))
                         });
                     }
-                        reader.Close();
-                        return Ok(owner);
-                    }
-                
+                    reader.Close();
+                    return Ok(owner);
+                }
+
             }
         }
 
@@ -189,7 +188,7 @@ namespace DogWalkerFull.Controllers
             }
         }
 
-       
+
         //Check method
         private bool OwnerExists(int id)
         {
