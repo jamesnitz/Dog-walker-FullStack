@@ -41,7 +41,7 @@ namespace DogWalkerFull
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+               endpoints.MapControllers();
             });
         }
     }
