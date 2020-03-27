@@ -85,37 +85,38 @@ namespace DogWalkerFull.Controllers
 
                     Owner owner = null;
 
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        owner = new Owner
+                        if (owner == null)
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
-                            Address = reader.GetString(reader.GetOrdinal("Address")),
-                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
-                            NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
-                            Neighborhood = new Neighborhood()
+                            owner = new Owner
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
-                                Name = reader.GetString(reader.GetOrdinal("NeighborhoodName")),
-                            },
-                            Dog = new Dog()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("DogId")),
-                                Name = reader.GetString(reader.GetOrdinal("DogName")),
-                                Breed = reader.GetString(reader.GetOrdinal("Breed")),
-                                Notes = reader.GetString(reader.GetOrdinal("Notes"))
-                            }
-                        };
-                    reader.Close();
-                    return Ok(owner);
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                                Neighborhood = new Neighborhood()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                                    Name = reader.GetString(reader.GetOrdinal("NeighborhoodName")),
+                                },
+                                Dogs = new List<Dog>()
+                            };
+                        }
+                        owner.Dogs.Add(new Dog()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("DogId")),
+                            OwnerId = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("DogName")),
+                            Breed = reader.GetString(reader.GetOrdinal("Breed")),
+                            Notes = reader.GetString(reader.GetOrdinal("Notes"))
+                        });
                     }
-                    else
-                    {
-                        return NotFound();
+                        reader.Close();
+                        return Ok(owner);
                     }
-
-                }
+                
             }
         }
 
