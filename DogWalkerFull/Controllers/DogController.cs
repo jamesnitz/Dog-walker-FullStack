@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DogWalkerFull.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] 
     [ApiController]
     public class DogController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace DogWalkerFull.Controllers
         }
         //Get All
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int? neighborhoodId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -40,6 +40,12 @@ namespace DogWalkerFull.Controllers
                         FROM Dog d
                         Left Join Owner o
                         On d.OwnerId = o.Id";
+
+                    if (neighborhoodId != null)
+                    {
+                        cmd.CommandText += " WHERE neighborhoodId = @neighborhoodId";
+                        cmd.Parameters.Add(new SqlParameter("@neighborhoodId", neighborhoodId));
+                    }
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Dog> dogs = new List<Dog>();
 

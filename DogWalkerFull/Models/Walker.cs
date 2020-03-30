@@ -14,5 +14,7 @@ namespace DogWalkerFull.Models
         public int NeighborhoodId { get; set; }
 
         public Neighborhood Neighborhood { get; set; }
+
+        public List<Walks> Walks { get; set; }
     }
 }
