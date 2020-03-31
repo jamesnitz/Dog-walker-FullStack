@@ -17,7 +17,7 @@ namespace DogWalkerFull.Models
         [Required]
         public int NeighborhoodId { get; set; }
         [RegularExpression("^[01]?[- .]?\\(?[2-9]\\d{2}\\)?[- .]?\\d{3}[- .]?\\d{4}$",
-        ErrorMessage = "Phone is required and must be properly formatted.")]
+        ErrorMessage = "Phone is required and must be properly formatted. Ex: 555-555-5555")]
         public string Phone { get; set; }
         public Neighborhood Neighborhood { get; set; }
         public List<Dog> Dogs { get; set; }
