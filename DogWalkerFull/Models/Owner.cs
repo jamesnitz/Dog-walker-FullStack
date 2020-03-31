@@ -10,14 +10,15 @@ namespace DogWalkerFull.Models
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(40, MinimumLength = 2, ErrorMessage = "Owner Name must be between 2 and 40 characters")]
         public string Name { get; set; }
         [Required]
-        [StringLength(40, MinimumLength = 2, ErrorMessage = "Owner Name must be between 2 and 40 characters")]
-
         public string Address { get; set; }
-        public int NeighborhoodId { get; set; }
-        public string Phone { get; set; }
         [Required]
+        public int NeighborhoodId { get; set; }
+        [RegularExpression("^[01]?[- .]?\\(?[2-9]\\d{2}\\)?[- .]?\\d{3}[- .]?\\d{4}$",
+        ErrorMessage = "Phone is required and must be properly formatted.")]
+        public string Phone { get; set; }
         public Neighborhood Neighborhood { get; set; }
         public List<Dog> Dogs { get; set; }
  
