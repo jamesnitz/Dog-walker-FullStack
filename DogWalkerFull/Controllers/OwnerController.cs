@@ -29,6 +29,8 @@ namespace DogWalkerFull.Controllers
         }
         //GET ALL
 
+            ///
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string include, [FromQuery] string q)
         {
